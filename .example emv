@@ -1,0 +1,14 @@
+# ===========================================
+# Supabase (Project Settings -> API)
+# ===========================================
+SUPABASE_URL="//"
+SUPABASE_ANON_KEY="your supabase anoney key"
+# Service role key is ONLY used server-side for the Admin Dashboard
+# (bypasses Row Level Security). Never expose this in client code.
+SUPABASE_SERVICE_ROLE_KEY="//"
+
+
+# ===========================================
+# App config
+# ===========================================
+APP_ENV=development

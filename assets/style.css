@@ -1,0 +1,110 @@
+/* ==========================================================================
+   AI Resume Analyzer — "Scan Readout" design system
+   Palette:  bg #0B0F14 · surface #131922 · surface-alt #1A2230
+             border #2A3441 · text #E8EDF2 · muted #8B97A8
+             mint (pass) #3DDC97 · amber (gap) #F2B84B · red (risk) #E5616E
+   Type:     display = Space Grotesk · body = Inter · data = JetBrains Mono
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600;700&display=swap');
+
+:root{
+    --bg:#0B0F14; --surface:#131922; --surface-alt:#1A2230; --border:#2A3441;
+    --text:#E8EDF2; --muted:#8B97A8;
+    --mint:#3DDC97; --mint-dim:rgba(61,220,151,.14);
+    --amber:#F2B84B; --amber-dim:rgba(242,184,75,.14);
+    --red:#E5616E; --red-dim:rgba(229,97,110,.14);
+    --font-display:'Space Grotesk',sans-serif;
+    --font-body:'Inter',sans-serif;
+    --font-mono:'JetBrains Mono',monospace;
+}
+
+html, body, [class*="css"]{ font-family: var(--font-body); color: var(--text); }
+.main .block-container{ padding-top: 2rem; max-width: 1180px; }
+h1,h2,h3,h4{ font-family: var(--font-display); letter-spacing: -0.01em; }
+
+section[data-testid="stSidebar"]{
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+}
+section[data-testid="stSidebar"] .block-container{ padding-top: 1.5rem; }
+
+/* eyebrow / section label — small mono caps with a thin accent rule */
+.eyebrow{
+    font-family: var(--font-mono); font-size: .72rem; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--mint); display:flex; align-items:center; gap:.5rem;
+    margin: 0 0 .35rem 0;
+}
+.eyebrow::after{ content:""; flex:1; height:1px; background: var(--border); }
+
+.app-title{ font-family: var(--font-display); font-weight:700; font-size:1.4rem; }
+.app-title span{ color: var(--mint); }
+
+/* generic surface card */
+.scan-card{
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 1.25rem 1.4rem; position:relative; overflow:hidden;
+}
+.scan-card::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, transparent, var(--mint), transparent);
+    opacity:.55;
+}
+
+/* compact metric card for dashboard tiles */
+.metric-card{
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 1rem 1.1rem;
+}
+.metric-card .label{ font-family: var(--font-mono); font-size:.68rem; letter-spacing:.1em;
+    text-transform:uppercase; color: var(--muted); }
+.metric-card .value{ font-family: var(--font-mono); font-size:1.9rem; font-weight:700; color: var(--text); }
+.metric-card .delta{ font-size:.78rem; color: var(--mint); font-family: var(--font-mono); }
+
+/* radial scan gauge (built from a conic-gradient ring) */
+.scan-gauge-wrap{ display:flex; align-items:center; gap:1.25rem; }
+.scan-gauge{
+    --pct: 0;
+    width:128px; height:128px; border-radius:50%; position:relative;
+    background: conic-gradient(var(--gauge-color, var(--mint)) calc(var(--pct) * 1%), var(--surface-alt) 0);
+    display:flex; align-items:center; justify-content:center;
+}
+.scan-gauge::before{
+    content:""; position:absolute; inset:8px; border-radius:50%; background: var(--surface);
+    border: 1px solid var(--border);
+}
+.scan-gauge .gauge-readout{ position:relative; z-index:1; text-align:center; }
+.scan-gauge .gauge-score{ font-family: var(--font-mono); font-size:1.7rem; font-weight:700; color: var(--text); line-height:1; }
+.scan-gauge .gauge-of{ font-family: var(--font-mono); font-size:.65rem; color: var(--muted); }
+
+/* skill chips */
+.chip-row{ display:flex; flex-wrap:wrap; gap:.45rem; margin:.4rem 0; }
+.chip{
+    font-family: var(--font-mono); font-size:.74rem; padding:.3rem .65rem; border-radius:999px;
+    border:1px solid var(--border); background: var(--surface-alt); color: var(--text);
+}
+.chip--match{ border-color: rgba(61,220,151,.4); background: var(--mint-dim); color: var(--mint); }
+.chip--missing{ border-color: rgba(242,184,75,.4); background: var(--amber-dim); color: var(--amber); }
+.chip--risk{ border-color: rgba(229,97,110,.4); background: var(--red-dim); color: var(--red); }
+
+/* grade badge */
+.grade-badge{
+    font-family: var(--font-mono); font-weight:700; font-size:1.05rem; border-radius:8px;
+    padding:.3rem .7rem; display:inline-block; border:1px solid var(--border);
+}
+
+hr{ border-color: var(--border); }
+
+/* streamlit buttons */
+.stButton>button, .stDownloadButton>button{
+    background: var(--mint); color:#06140F; border:none; border-radius:8px; font-weight:600;
+    font-family: var(--font-body);
+}
+.stButton>button:hover, .stDownloadButton>button:hover{ background:#2fc183; color:#06140F; }
+
+.stTabs [data-baseweb="tab-list"]{ gap: 6px; }
+.stTabs [data-baseweb="tab"]{ background: var(--surface); border-radius: 8px 8px 0 0; }
+
+/* chat bubble for resume chatbot */
+.chat-bubble-user{ background: var(--surface-alt); border:1px solid var(--border); border-radius:12px 12px 2px 12px; padding:.7rem 1rem; margin:.3rem 0; }
+.chat-bubble-ai{ background: var(--mint-dim); border:1px solid rgba(61,220,151,.3); border-radius:12px 12px 12px 2px; padding:.7rem 1rem; margin:.3rem 0; }
