@@ -1,5 +1,6 @@
 streamlit==1.38.0
 supabase==2.7.4
+groq==0.30.0
 pandas==2.2.2
 plotly==5.24.1
 pdfplumber==0.11.4
